@@ -36,7 +36,7 @@ public class ProductPrice implements Serializable{
 
     public Price toPrice(long id) {
         Price p = new Price();
-        p.setProduct(id);
+        p.set_Id(id);
         p.setValue(this.value);
         p.setCountryCode(this.currencyCode);
         return p;

@@ -1,11 +1,9 @@
 package carl.myretail.controllers;
 
 
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -41,7 +39,7 @@ public class MyRetailController {
         
         String productName = redSkyService.getNameForProductId(id);
         
-        Optional<Price>  priceDto = priceRepository.findByProduct(id);
+        Optional<Price>  priceDto = priceRepository.findById(id);
         
         if (!priceDto.isPresent()){
             return new Product(id, productName, null);
@@ -60,20 +58,9 @@ public class MyRetailController {
         
         String productName = redSkyService.getNameForProductId(id);
         
-        Optional<Price>  optionalPrice = priceRepository.findByProduct(id);
-        
-        Price inputPrice = product.currentPrice.toPrice(id);
-        Price priceDto = new Price();
-        if (optionalPrice.isPresent()) {
-            priceDto = optionalPrice.get();
-            priceDto.setCountryCode(inputPrice.getCountryCode());
-            priceDto.setValue(inputPrice.getValue());
-            priceRepository.save(priceDto);
-        } else {
-            priceRepository.save(inputPrice);
-        }
+        priceRepository.save(product.currentPrice.toPrice(id));
 
-        return new Product(id, productName, new ProductPrice(inputPrice));
+        return new Product(id, productName, new ProductPrice(product.currentPrice.toPrice(id)));
     }
 
 }
