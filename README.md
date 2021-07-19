@@ -34,4 +34,5 @@ MongoDB needs to be setup prior in the following ways:
     `{ "_id": 13264003, "value": 3.59, "countryCode": "USD" }`
     `{ "_id": 12954218, "value": 5.99, "countryCode": "USD" }`
 
+Since MongoDB is running locally, make sure to start it before trying to run this application, otherwise it will fail with connection errors.
 
